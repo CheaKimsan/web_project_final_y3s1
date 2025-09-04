@@ -1,0 +1,117 @@
+
+.bg-btn-toggle{
+  background: none !important;
+  border: none !important;
+  color: gray !important;
+  font-weight: 500 !important;
+}
+// Sidebar hover effect
+.sidebar-item {
+  border-radius: 4px;
+  transition: background-color 0.2s, color 0.2s;
+
+  &:hover {
+    background-color: #f0f2f5; // Light gray background on hover (similar to dashboard)
+    color: #1a73e8; // Darker blue text on hover (matches primary color theme)
+    .svg-inline--fa {
+      color: #1a73e8; // Ensure icons change color too
+    }
+  }
+}
+
+// Header link hover effect
+.custom-header {
+  border-bottom: 1px solid #e9ecef; // Light border at the bottom
+
+  .nav-link-custom {
+    color: #6c757d; // Default gray color
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    transition: border-bottom 0.2s, color 0.2s;
+
+    &:hover {
+      color: #212529; // Darker gray on hover
+      border-bottom: 2px solid #0d6efd; // Blue underline on hover
+    }
+
+    &.active {
+      color: #0d6efd; // Blue for active link
+      border-bottom: 2px solid #0d6efd; // Blue underline for active
+      font-weight: 600; // Bold for active link
+    }
+  }
+
+  .hover-bg-gray-100 {
+    &:hover {
+      background-color: #f8f9fa; // Light gray hover for menu button
+    }
+  }
+
+  .form-control {
+    border-radius: 0.375rem; // Rounded corners
+    border-color: #ced4da; // Light border
+    padding-left: 2rem; // Adjust for icon
+
+    &:focus {
+      box-shadow: none; // Remove default Bootstrap focus shadow
+      border-color: #0d6efd; // Blue border on focus
+      outline: 0; // Remove outline
+    }
+  }
+
+  .position-absolute {
+    top: 50%;
+    left: 0.75rem;
+    transform: translateY(-50%);
+    color: #6c757d; // Gray icon
+  }
+}
+
+// Ensure toggle button doesn't interfere with hover
+.bg-btn-toggle {
+  border: none;
+  background: transparent;
+  padding: 0.25rem;
+
+  &:hover {
+    background-color: #e0e0e0; // Light gray on hover for button
+    border-radius: 4px;
+  }
+}
+
+// Existing sidebar-item hover effect
+.sidebar-item {
+  border-radius: 4px;
+  transition: background-color 0.2s, color 0.2s;
+
+  &:hover {
+    background-color: #f0f2f5;
+    color: #1a73e8;
+    .svg-inline--fa {
+      color: #1a73e8;
+    }
+  }
+
+  // Active item style
+  &.active {
+    background-color: #e6f0fa; // Light blue background for active item
+    color: #1a73e8; // Darker blue text for active item
+    font-weight: 500;
+
+    .svg-inline--fa {
+      color: #1a73e8; // Ensure icons match active text color
+    }
+
+    &:hover {
+      background-color: #d9e6f5; // Slightly darker on hover when active
+    }
+  }
+}
+
+
+.customize-sidebar{
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  padding-block: 8px;
+}

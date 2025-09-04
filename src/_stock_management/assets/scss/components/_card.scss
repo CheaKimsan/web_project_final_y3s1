@@ -1,0 +1,287 @@
+.card {
+  &.port-card {
+    .img-wrapper {
+      height: 300px;
+      overflow: hidden;
+
+      .port-img {
+        transition: all 0.2s linear !important;
+      }
+
+      &:hover {
+        .port-img {
+          transform: rotate(5deg) scale(1.1) !important;
+        }
+      }
+    }
+
+    &:hover {
+      position: relative;
+
+      &:before {
+        content: "";
+        position: absolute;
+        height: 3px;
+        background-color: $primary;
+        left: 0;
+        top: 0;
+        z-index: 9;
+        animation: animated-card-border 0.2
+      }
+    }
+  }
+
+  @keyframes animated-card-border {
+    from {
+      width: 0;
+    } to {
+      width: 100%;
+    }
+  }
+
+  &.skill-card {
+    transition: all 0.3s ease-in-out;
+    z-index: 99;
+
+    &:hover {
+      background-color: inherit;
+      border-color: transparent;
+      box-shadow: 0 0 0 2px $primary;
+    }
+  }
+
+  .custom-text-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+  }
+
+  .card-title {
+    &.custom-text-overflow {
+      -webkit-line-clamp: 1;
+    }
+  }
+
+  .card-text {
+    &.custom-text-overflow {
+      -webkit-line-clamp: 3;
+    }
+  }
+}
+
+//Card-About-Drone
+
+.system-status-card {
+  background: #343D48;
+  color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  padding: 1rem;
+  max-width: 350px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.system-status-card .title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.status-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.status-box {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+  flex: 1;
+  text-align: center;
+  min-width: 0;
+}
+
+.status-box .value {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #4ecdc4;
+  white-space: nowrap;
+}
+
+.status-box .label {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+//Card-Live-Drone
+
+.live-status-card {
+  background: #343D48;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  padding: 12px 16px;
+  width: 220px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.live-status-card .header-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  background-color: unset;
+}
+
+.live-status-card .title {
+  font-weight: bold;
+  color: #ffffff; /* white title */
+}
+
+.live-status-card .status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.status-dot.green {
+  background-color: #3fcf5e; /* online */
+}
+
+.status-dot.red {
+  background-color: #e74c3c; /* offline */
+}
+
+.live-status-card .info p {
+  margin: 4px 0;
+  font-size: 13px;
+  color: #d0d6db; /* light gray for labels */
+}
+
+.live-status-card .info span {
+  font-weight: 500;
+  color: #ffffff; /* white values */
+}
+
+//Drone-Video-Card
+
+.drone-feeds-container {
+  background: #2f3b46;
+  color: #fff;
+  border-radius: 12px;
+  padding: 20px 24px;
+  width: fit-content;
+  font-family: Arial, sans-serif;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
+}
+
+.header-live-card {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+.live-status {
+  font-weight: 700;
+  color: red;
+  font-size: 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.drone-video-card {
+  background: #000;
+  border: 1px solid #4ecdc4;
+  border-radius: 8px;
+  width: 160px;    /* increased width */
+  height: 120px;   /* increased height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.drone-id {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  font-size: 14px;
+}
+
+.drone-icon {
+  opacity: 0.8;
+  width: 40px;  /* larger icon */
+  height: 40px;
+}
+
+
+//  Drone-Control-Panel-Card
+.drone-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px; // bigger padding
+  border-radius: 14px;
+  background-color: rgba(41, 50, 65, 0.9);
+  gap: 12px; // more space between buttons
+  transform: scale(1.2); // make the whole panel 20% bigger
+}
+
+.control-btn {
+  width: 45px;   // bigger buttons
+  height: 45px;  // bigger buttons
+  border-radius: 50%;
+  border: 1px solid #4ecdc4;
+  background-color: #2f3b52;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #3e4a63;
+  }
+
+  i {
+    font-size: 20px; // bigger icons
+  }
+}
+
+.pause-btn {
+  background-color: #6c1c1c;
+  border-color: rgba(255, 255, 255, 0.2);
+
+  &:hover {
+    background-color: #832020;
+  }
+}
+
+
+
+
+

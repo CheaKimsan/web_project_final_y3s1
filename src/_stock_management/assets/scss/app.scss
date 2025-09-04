@@ -1,0 +1,47 @@
+
+.container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f9fafb;
+  color: #1f2937;
+
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 20;
+    display: none;
+  }
+
+  .main {
+    flex: 1;
+    padding: 1.5rem 2rem;
+
+    .contentGrid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+
+      @media (min-width: 1280px) {
+        grid-template-columns: 2fr 1fr;
+      }
+
+      .analyticsGrid {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+
+        @media (min-width: 768px) {
+          grid-template-columns: 2fr 1fr 1fr;
+        }
+
+        @media (min-width: 1280px) {
+          grid-column: 2 / 3;
+          grid-template-columns: 1fr 1fr 1fr;
+        }
+      }
+    }
+  }
+}
+

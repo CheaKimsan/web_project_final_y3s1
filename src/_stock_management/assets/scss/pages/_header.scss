@@ -1,0 +1,101 @@
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0a0f1c;
+  border-bottom: 2px solid #00f7ff;
+  padding: 10px 20px;
+  position: relative;
+  font-family: "Orbitron", sans-serif; // futuristic font
+
+  .menu-buttons {
+    display: flex;
+    gap: 10px;
+
+    .menu-btn {
+      background: transparent;
+      border: 1px solid #00f7ff;
+      color: #00f7ff;
+      padding: 6px 14px;
+      border-radius: 3px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.3s;
+      position: relative;
+
+      &:hover,
+      &.active {
+        background: rgba(0, 247, 255, 0.1);
+        box-shadow: 0 0 10px #00f7ff, inset 0 0 5px #00f7ff;
+      }
+
+      // angled futuristic edge
+      clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
+    }
+  }
+
+  .header-title {
+    font-size: 20px;
+    color: #00f7ff;
+    font-weight: bold;
+    text-shadow: 0 0 10px #00f7ff;
+    flex: 1;
+    text-align: center;
+  }
+
+  .header-datetime {
+    color: #ccc;
+    font-size: 14px;
+    text-shadow: 0 0 5px #00f7ff;
+  }
+
+  // Decorative glowing line at bottom
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00f7ff, transparent);
+  }
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  max-height: 100% !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,132 @@
+.header {
+  background-color: #0b1e39 !important;
+  padding: 0.5rem 1rem;
+  height: 69px;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #1e3350;
+}
+
+.header-wrapper {
+  height: 70px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1050;
+  pointer-events: auto;
+}
+
+.content > :not(.header-wrapper) {
+  pointer-events: none; /* other content lets map interact */
+}
+
+.toggle-menu-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: #a0b9d0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+  }
+}
+
+.no-caret .dropdown-toggle::after {
+  display: none !important;
+}
+
+.no-caret .dropdown-toggle {
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+.header-search {
+  flex-grow: 1;
+  min-width: 350px;
+  max-width: 600px;
+  margin: 0 20px;
+
+  .input-group {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .input-group-text {
+    background: transparent;
+    border: none;
+    color: #6c87a5;
+  }
+
+  .search-input {
+    background: transparent;
+    border: none;
+    color: #fff;
+    padding-left: 0;
+
+    &::placeholder {
+      color: #6c87a5;
+    }
+
+    &:focus {
+      background: transparent;
+      color: #fff;
+      box-shadow: none;
+      border: none;
+    }
+  }
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+// Responsive styles
+@media (max-width: 768px) {
+  .header-search {
+    max-width: 200px;
+  }
+
+  .user-profile .user-info {
+    display: none;
+  }
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+  }
+
+  .user-info {
+    line-height: 1.2;
+
+    div:last-child {
+      font-size: 0.8rem;
+      color: #6c87a5;
+    }
+  }
+}

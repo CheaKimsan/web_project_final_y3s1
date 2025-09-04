@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'Inter';
+  src: url('_stock_management/assets/fonts/Inter-Regular.ttf') format('truetype'); 
+  font-style: normal;
+}
+
+
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f9fafb !important; // Removed extra semicolon
+}

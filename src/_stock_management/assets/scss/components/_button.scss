@@ -1,0 +1,27 @@
+[data-bs-theme=dark] {
+  .btn-close {
+    filter: unset !important;
+  }
+}
+
+.btn {
+  &.btn-primary {
+    color: $white !important;
+  }
+
+  &:active, &:focus {
+    box-shadow: unset !important;
+  }
+
+  &.to-top {
+    z-index: 999;
+    width: 50px;
+    height: 50px;
+    box-shadow: unset;
+    transition: all 0.2s linear;
+
+    &:hover {
+      box-shadow: 0 0 100px 5px $primary;
+    }
+  }
+}

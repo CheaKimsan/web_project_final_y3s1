@@ -1,0 +1,46 @@
+.offcanvas {
+  background-color: $white;
+
+  .offcanvas-header {
+    .offcanvas-title {
+      color: $dark;
+    }
+
+    .btn-close {
+      color: $dark;
+      box-shadow: unset !important;
+    }
+  }
+
+  .offcanvas-body {
+    .nav-link {
+      padding: 10px 20px !important;
+      background-color: transparent;
+      border-radius: 8px;
+      font-weight: 500;
+      color: var(--custom-theme-color);
+
+      &:hover {
+        color: $dark;
+        background-color: rgb($light, 1);
+      }
+
+      &.active {
+        color: $primary;
+        font-weight: 500;
+      }
+    }
+
+    @include media-breakpoint-down(lg) {
+      .nav-link {
+        color: $dark;
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .offcanvas-mobile-width {
+    width: 75% !important;
+  }
+}

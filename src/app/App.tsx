@@ -1,6 +1,5 @@
 import React from 'react';
 import AppRoute from "./routing/AppRoute";
-
 function App() {
     return (
         <React.Fragment>

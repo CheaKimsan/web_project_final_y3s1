@@ -30,8 +30,6 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
 
       <Nav className="mx-2">
         <Nav.Link className="fw-semibold text-primary header-link" href="/">Overview</Nav.Link>
-        <Nav.Link className="fw-semibold text-primary header-link" href="/">Payment</Nav.Link>
-        <Nav.Link className="fw-semibold text-primary header-link" href="/">Account</Nav.Link>
       </Nav>
       
       <div className="ms-auto d-flex align-items-center">

@@ -1,21 +1,14 @@
 import React from "react";
 import { Nav } from "react-bootstrap";
-import { House, FileText, People, Wallet, BarChart, Gear } from "react-bootstrap-icons";
 import { Link, useLocation } from "react-router-dom";
 import '../../assets/scss/custom.scss';
+import { menuItems } from "../../../_stock_management/constants/MenuItem";
+
 
 interface SidebarProps {
   collapsed: boolean;
 }
 
-const menuItems = [
-  { label: "Home", icon: House, path: "/" },
-  { label: "Documents", icon: FileText, path: "/documents" },
-  { label: "Users", icon: People, path: "/users" },
-  { label: "Wallet", icon: Wallet, path: "/wallet" },
-  { label: "Statistics", icon: BarChart, path: "/statistics" },
-  { label: "Settings", icon: Gear, path: "/settings", mtAuto: true },
-];
 
 const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
   const location = useLocation();
@@ -28,9 +21,9 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
           as={Link}
           to={path}
           key={label}
-          className={`d-flex align-items-center customize-sidebar mb-2 ${mtAuto ? "mt-auto" : ""} sidebar-item ${location.pathname === path ? "active" : ""}`}
+          className={`d-flex align-items-center customize-sidebar text-muted mb-2 ${mtAuto ? "mt-auto" : ""} sidebar-item ${location.pathname === path ? "active" : ""}`}
         >
-          <Icon className="me-2" /> {!collapsed && label}
+          <Icon className="me-2 customize-icon" /> {!collapsed && label}
         </Nav.Link>
       ))}
     </Nav>

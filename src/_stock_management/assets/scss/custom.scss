@@ -11,10 +11,10 @@
   transition: background-color 0.2s, color 0.2s;
 
   &:hover {
-    background-color: #f0f2f5; // Light gray background on hover (similar to dashboard)
-    color: #1a73e8; // Darker blue text on hover (matches primary color theme)
+    background-color: #f0f2f5 !important; // Light gray background on hover (similar to dashboard)
+    color: #1a73e8 !important; // Darker blue text on hover (matches primary color theme)
     .svg-inline--fa {
-      color: #1a73e8; // Ensure icons change color too
+      color: #1a73e8 !important; // Ensure icons change color too
     }
   }
 }
@@ -95,8 +95,8 @@
 
   // Active item style
   &.active {
-    background-color: #e6f0fa; // Light blue background for active item
-    color: #1a73e8; // Darker blue text for active item
+    background-color: #e6f0fa !important; // Light blue background for active item
+    color: #1a73e8 !important; // Darker blue text for active item
     font-weight: 500;
 
     .svg-inline--fa {
@@ -114,4 +114,28 @@
   font-size: 16px !important;
   font-weight: 500 !important;
   padding-block: 8px;
+}
+
+.customize-icon{
+  font-size: 20px !important;
+}
+
+/* styles/_pagination.scss */
+.pagination .page-link {
+  border-radius: 8px;
+  margin: 0 2px;
+  padding: 6px 12px;
+  color: #495057;
+  transition: all 0.2s ease;
+}
+
+.pagination .page-link:hover {
+  background-color: #f1f3f5;
+  color: #0d6efd;
+}
+
+.pagination .active .page-link {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  color: #fff;
 }

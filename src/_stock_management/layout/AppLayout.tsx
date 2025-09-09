@@ -11,7 +11,7 @@ const AppLayout: React.FC = () => {
   };
 
   const mainContentStyle: React.CSSProperties = {
-    padding: '32px',
+    padding: '18px',
     flexGrow: 1,
     transition: 'margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
     marginLeft: collapsed ? '80px' : '250px',

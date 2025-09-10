@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AppLayout from "../../_stock_management/layout/AppLayout";
 import Settings from "../modules/setting/Settings";

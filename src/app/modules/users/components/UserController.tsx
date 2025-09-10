@@ -3,7 +3,7 @@ import UserTable from "./UserTable";
 import FilterBar from "./FilterBar";
 import Pagination from "./Pagination";
 import "../../../../_stock_management/assets/scss/custom.scss";
-import { users as allUsers } from "../../../../_stock_management/constants/user";
+import { users as allUsers } from "../../../../_stock_management/constants/User";
 import { User } from "../../../../types/User";
 
 const UserController: React.FC = () => {

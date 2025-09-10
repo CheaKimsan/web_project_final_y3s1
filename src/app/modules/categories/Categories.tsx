@@ -1,5 +1,8 @@
-const Categories = () => {
-  return <div>Categories</div>;
-};
+import CateManagement from "./components/CateManagement";
 
+const Categories = () => {
+  return (
+      <CateManagement />
+  );
+}
 export default Categories;

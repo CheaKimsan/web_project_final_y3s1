@@ -1,12 +1,19 @@
 import React from "react";
 import { Navbar, Button, Nav } from "react-bootstrap";
-import '../../assets/scss/custom.scss';
+import { useLocation } from "react-router-dom";
+import "../../assets/scss/custom.scss";
+import { menuItems } from "../../../_stock_management/constants/MenuItem";
 
 interface HeaderProps {
   toggleSidebar?: () => void;
 }
 
 const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
+  const location = useLocation();
+
+  // find current page by matching pathname with menuItems
+  const activeItem = menuItems.find((item) => item.path === location.pathname);
+
   return (
     <Navbar className="px-3 mb-4 bg-white shadow-sm rounded">
       <Button onClick={toggleSidebar} className="bg-btn-toggle">
@@ -28,10 +35,12 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
         </svg>
       </Button>
 
-      <Nav className="mx-2">
-        <Nav.Link className="fw-semibold text-primary header-link" href="/">Overview</Nav.Link>
+      <Nav className="mx-1">
+        <Nav.Link className="fw-semibold fs-5 text-primary" disabled>
+          {activeItem ? activeItem.label : "Overview"}
+        </Nav.Link>
       </Nav>
-      
+
       <div className="ms-auto d-flex align-items-center">
         <span className="me-3">Sun, 18 Nov</span>
         <div

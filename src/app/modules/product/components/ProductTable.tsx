@@ -9,7 +9,6 @@ interface ProductTableProps {
 }
 
 const ProductTable: React.FC<ProductTableProps> = ({ products }) => {
-  // Common styles
 
   return (
     <div className='table-responsive'>

@@ -1,17 +1,16 @@
-import React from 'react';
-import ProductTable from '../components/ProductTable'; // Adjust path
-import '../../../../_stock_management/assets/scss/custom.scss';
-import { Products } from '../../../../_stock_management/constants/Product';
-import Pagination from '../../users/components/Pagination';
+import React from "react";
+import CateTable from "./CateTable";
+import { Categories } from "../../../../_stock_management/constants/Category";
+import Pagination from "../../users/components/Pagination";
 
-const ProductManagement: React.FC = () => {
-  return (
-    <div className="card p-4">
+const CateManagement:React.FC = () =>{
+    return<>
+        <div className="card p-4">
       <div className='card-headers' >
-        <h2>Product Management</h2>
+        <h2>Category Management</h2>
         <div>
           <button className='btn btn-secondary me-1'>Export CSV</button>
-          <button className='btn btn-success'>+ Add Product</button>
+          <button className='btn btn-success'>+ Add Category</button>
         </div>
       </div>
 
@@ -20,11 +19,11 @@ const ProductManagement: React.FC = () => {
         <select className='form-select w-auto'><option>All Status</option></select>
       </div>
 
-      <ProductTable products={Products} />
+      <CateTable categories={Categories} />
 
       <div className="d-flex justify-content-between align-items-center mt-3 small text-muted">
         <span>
-          Showing 1 to {Products.length} of {Products.length} results
+          Showing 1 to {Categories.length} of {Categories.length} results
         </span>
         <Pagination
           currentPage={1}
@@ -33,6 +32,6 @@ const ProductManagement: React.FC = () => {
         />
       </div>
     </div>
-  );
-};
-export default ProductManagement;
+    </>
+}
+export default CateManagement;

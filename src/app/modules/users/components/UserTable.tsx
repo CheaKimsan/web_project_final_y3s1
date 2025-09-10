@@ -1,6 +1,6 @@
 // components/UserTable.tsx
 import React from "react";
-import { User } from "../../../../types/User";
+import { User } from "../core/model";
 import UserRow from "./UserRow";
 
 interface UserTableProps {

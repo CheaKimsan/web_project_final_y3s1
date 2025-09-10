@@ -4,7 +4,7 @@ import FilterBar from "./FilterBar";
 import Pagination from "./Pagination";
 import "../../../../_stock_management/assets/scss/custom.scss";
 import { users as allUsers } from "../../../../_stock_management/constants/User";
-import { User } from "../../../../types/User";
+import { User } from "../core/model";
 
 const UserController: React.FC = () => {
   // Filter state

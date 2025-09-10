@@ -1,6 +1,7 @@
 // components/UserRow.tsx
 import React from "react";
-import { User } from "../../../../types/User";
+import { User } from "../core/model";
+import {PencilSquare, Trash} from "react-bootstrap-icons";
 
 interface UserRowProps {
   user: User;
@@ -36,14 +37,14 @@ const UserRow: React.FC<UserRowProps> = ({ user }) => {
       <td>
         <span className={statusClass}>{user.status}</span>
       </td>
-      <td className="text-end">
-        <button className="btn btn-warning btn-sm me-1">
-          edit
-        </button>
-        <button className="btn btn-danger btn-sm">
-          delete
-        </button>
-      </td>
+        <td className="text-end">
+            <button className="btn btn-warning btn-sm me-1">
+                <PencilSquare/> Edit
+            </button>
+            <button className="btn btn-danger btn-sm">
+                <Trash/> Delete
+            </button>
+        </td>
     </tr>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { users } from "../../../../_stock_management/constants/User";
-import { User } from "../../../../types/User";
+import { User } from "../core/model";
 import FilterBar from "./FilterBar";
 import UserTable from "./UserTable";
 

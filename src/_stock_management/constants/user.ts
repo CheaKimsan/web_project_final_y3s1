@@ -1,4 +1,4 @@
-import { User } from "../../types/User";
+import { User } from "../../app/modules/users/core/model";
 
 export const users: User[] = [
   { id: 1, name: "Chea Kimsan", email: "cheakimsan@.com", role: "Admin", lastActive: "Today, 10:24 AM", status: "Active" },

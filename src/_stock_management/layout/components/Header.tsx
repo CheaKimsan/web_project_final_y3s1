@@ -1,5 +1,5 @@
-import React from "react";
-import { Navbar, Button, Nav } from "react-bootstrap";
+import React, { useState } from "react";
+import { Navbar, Button, Nav, Dropdown } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import "../../assets/scss/custom.scss";
 import { menuItems } from "../../../_stock_management/constants/MenuItem";
@@ -11,8 +11,22 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
   const location = useLocation();
 
-  // find current page by matching pathname with menuItems
   const activeItem = menuItems.find((item) => item.path === location.pathname);
+
+
+  const [user, setUser] = useState<{ name: string; role: string } | null>({
+    name: "San",
+    role: "Admin",
+  });
+
+  const handleLogout = () => {
+    console.log("User logged out");
+    setUser(null); // clear user
+  };
+
+  const handleLogin = () => {
+    setUser({ name: "Adddd", role: "Admin" }); // demo login
+  };
 
   return (
     <Navbar className="px-3 mb-4 bg-white shadow-sm rounded">
@@ -42,16 +56,48 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
       </Nav>
 
       <div className="ms-auto d-flex align-items-center">
-        <span className="me-3">Sun, 18 Nov</span>
-        <div
-          className="rounded-circle bg-secondary text-white d-flex justify-content-center align-items-center"
-          style={{ width: "35px", height: "35px" }}
-        >
-          U
-        </div>
+        {user ? (
+          <Dropdown align="end">
+            <Dropdown.Toggle
+              variant="light"
+              id="dropdown-user"
+              className="border-0 d-flex align-items-center gap-2"
+            >
+              {/* Circle Avatar */}
+              <div
+                className="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center"
+                style={{ width: "35px", height: "35px", fontWeight: 600 }}
+              >
+                {user.name.charAt(0).toUpperCase()}
+              </div>
+              <span className="fw-semibold text-dark">{user.name}</span>
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu className="shadow-sm border-0 mt-2 rounded-3">
+              <div className="px-3 py-2 border-bottom">
+                <div className="fw-semibold">{user.name}</div>
+                <small className="text-muted">{user.role}</small>
+              </div>
+              <Dropdown.Item href="#profile" className="border-bottom">
+                Profile
+              </Dropdown.Item>
+              <Dropdown.Item href="#settings">Settings</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item
+                className="text-danger fw-semibold"
+                onClick={handleLogout}
+              >
+                Log out
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        ) : (
+          <Button variant="warning" size="sm" onClick={handleLogin}>
+            Login
+          </Button>
+        )}
       </div>
     </Navbar>
   );
 };
-
 export default Header;

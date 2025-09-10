@@ -1,8 +1,7 @@
-// src/components/ProductTable.tsx
-
 import React from 'react';
-import { Product } from '../../../../types/Product'; // Adjust path
-import StatusBadge from './StatusBadge'; // Adjust path
+import { Product } from '../core/model'; // Adjust path
+import StatusBadge from './StatusBadge';
+import {PencilSquare, Trash} from "react-bootstrap-icons"; // Adjust path
 
 interface ProductTableProps {
   products: Product[];
@@ -43,10 +42,10 @@ const ProductTable: React.FC<ProductTableProps> = ({ products }) => {
               <td><StatusBadge status={product.status} /></td>
               <td>
                 <button className="btn btn-warning btn-sm me-1">
-                  edit
+                  <PencilSquare/> Edit
                 </button>
                 <button className="btn btn-danger btn-sm">
-                  delete
+                  <Trash/> Delete
                 </button>
               </td>
             </tr>

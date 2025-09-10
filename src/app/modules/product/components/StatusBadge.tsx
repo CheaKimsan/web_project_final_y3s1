@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProductStatus } from '../../../../types/Product'; // Adjust path
+import { ProductStatus } from './../core/model'; // Adjust path
 
 interface StatusBadgeProps {
   status: ProductStatus;

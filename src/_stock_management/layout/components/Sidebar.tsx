@@ -2,7 +2,7 @@ import React from "react";
 import { Nav } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import '../../assets/scss/custom.scss';
-import { menuItems } from "../../../_stock_management/constants/MenuItem";
+import { menuItems } from "../../constants/MenuItem";
 
 
 interface SidebarProps {

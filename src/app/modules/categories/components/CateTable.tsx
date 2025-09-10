@@ -1,6 +1,7 @@
 import React from "react";
-import { Category } from "../../../../types/Category";
+import { Category } from "../core/model";
 import { Categories } from "../../../../_stock_management/constants/Category";
+import {PencilSquare, Trash} from "react-bootstrap-icons";
 
 interface CateTableProps {
     categories: Category[];
@@ -26,10 +27,10 @@ const CateTable: React.FC<CateTableProps> = ({ categories }) => {
                                 <td>{cate.description}</td>
                                 <td>
                                     <button className="btn btn-warning btn-sm me-1">
-                                        edit
+                                        <PencilSquare/> Edit
                                     </button>
                                     <button className="btn btn-danger btn-sm">
-                                        delete
+                                        <Trash/> Delete
                                     </button>
                                 </td>
                             </tr>

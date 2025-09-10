@@ -29,6 +29,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             if (currentUser) {
+                console.log(currentUser)
                 const idToken = await currentUser.getIdToken();
                 setToken(idToken);
                 localStorage.setItem("token", idToken);

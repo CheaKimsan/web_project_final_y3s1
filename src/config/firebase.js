@@ -4,15 +4,16 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyA0oZ8N6cZ9CUpyqqDehA9z4h1OmrSxONs",
-    authDomain: "egdi-d5fa7.firebaseapp.com",
-    projectId: "egdi-d5fa7",
-    storageBucket: "egdi-d5fa7.firebasestorage.app",
-    messagingSenderId: "94702355649",
-    appId: "1:94702355649:web:dc33f845310933ef418040",
-    measurementId: "G-2C49F6DPK7"
+    apiKey: "AIzaSyAjn320cXZiXKFyASTzYgId_QkrNxc-xng",
+    authDomain: "api-auth-9504e.firebaseapp.com",
+    projectId: "api-auth-9504e",
+    storageBucket: "api-auth-9504e.firebasestorage.app",
+    messagingSenderId: "124301297479",
+    appId: "1:124301297479:web:a4c3c9c202c8c45f632e62",
+    measurementId: "G-S259SMGH6Y"
+//     email : admin@gmail.com
+//     password : **aa12345
 };
-
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);

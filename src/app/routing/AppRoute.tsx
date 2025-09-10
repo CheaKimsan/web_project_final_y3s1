@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, BrowserRouter } from "react-router-dom";
 import AppLayout from "../../_stock_management/layout/AppLayout";
 import Settings from "../modules/setting/Settings";
 import Dashboard from "../modules/shipping/Dashboard";
@@ -12,22 +12,29 @@ import PrivateRoute from "./PrivateRoute"; // import the private route
 const App = () => {
   return (
     <AuthProvider>
-      <Router>
+      <BrowserRouter>
         <Routes>
-          <Route path="auth" element={<LoginPage />} />
+          {/* Public login route */}
+          <Route path="/auth" element={<LoginPage />} />
 
-          {/* Private routes */}
-          <Route element={<PrivateRoute />}>
-            <Route path="/" element={<AppLayout />}>
-              <Route index element={<Dashboard />} />
-              <Route path="users" element={<User />} />
-              <Route path="categories" element={<Categories />} />
-              <Route path="products" element={<Product />} />
-              <Route path="settings" element={<Settings />} />
-            </Route>
+          {/* Protected routes */}
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <AppLayout />
+              </PrivateRoute>
+            }
+          >
+            {/* Default route → Dashboard */}
+            <Route index element={<Dashboard />} />
+            <Route path="users" element={<User />} />
+            <Route path="categories" element={<Categories />} />
+            <Route path="products" element={<Product />} />
+            <Route path="settings" element={<Settings />} />
           </Route>
         </Routes>
-      </Router>
+      </BrowserRouter>
     </AuthProvider>
   );
 };

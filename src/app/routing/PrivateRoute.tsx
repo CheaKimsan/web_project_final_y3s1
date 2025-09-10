@@ -1,16 +1,16 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "../modules/auth/AuthContext"; // adjust path if needed
+import { useAuth } from "../modules/auth/AuthContext";
 
-const PrivateRoute: React.FC = () => {
-  const { user } = useAuth(); 
-  if (!user) {
-    // If not logged in, redirect to login page
-    return <Navigate to="/auth" replace />;
+const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const { user, token } = useAuth();
+
+  if (user === undefined) {
+    return null;
   }
-
-  // If logged in, render the child routes
-  return <Outlet />;
+  return user && token ? <>{children}</> : <Navigate to="/auth" replace />;
 };
 
 export default PrivateRoute;

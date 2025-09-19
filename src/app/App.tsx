@@ -1,10 +1,12 @@
 import React from 'react';
 import AppRoute from "./routing/AppRoute";
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 function App() {
     return (
-        <React.Fragment>
+        <Provider store={store}>
             <AppRoute/>
-        </React.Fragment>
+        </Provider>
     );
 }
 

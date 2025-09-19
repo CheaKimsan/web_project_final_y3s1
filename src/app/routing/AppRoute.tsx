@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, BrowserRouter } from "react-router-dom";
+import {Routes, Route, BrowserRouter } from "react-router-dom";
 import AppLayout from "../../_stock_management/layout/AppLayout";
 import Settings from "../modules/setting/Settings";
 import Dashboard from "../modules/shipping/Dashboard";
@@ -7,7 +7,8 @@ import Categories from "../modules/categories/Categories";
 import Product from "../modules/product/Product";
 import LoginPage from "../modules/auth/login/LoginPage";
 import { AuthProvider } from "../modules/auth/AuthContext";
-import PrivateRoute from "./PrivateRoute"; // import the private route
+import PrivateRoute from "./PrivateRoute";
+import Roles from "../modules/role/Roles";
 
 const App = () => {
   return (
@@ -16,7 +17,6 @@ const App = () => {
         <Routes>
           {/* Public login route */}
           <Route path="/auth" element={<LoginPage />} />
-
           {/* Protected routes */}
           <Route
             path="/"
@@ -27,10 +27,11 @@ const App = () => {
             }
           >
             {/* Default route → Dashboard */}
-            <Route index element={<Dashboard />} />
+            <Route path="/" element={<Dashboard />} />
+            <Route path="products" element={<Product />} />
             <Route path="users" element={<User />} />
             <Route path="categories" element={<Categories />} />
-            <Route path="products" element={<Product />} />
+x            <Route path="role" element={<Roles />}/>
             <Route path="settings" element={<Settings />} />
           </Route>
         </Routes>

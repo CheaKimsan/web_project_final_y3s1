@@ -1,11 +1,5 @@
 import React from "react";
-
-interface FilterBarProps {
-  role: string;
-  setRole: (value: string) => void;
-  status: string;
-  setStatus: (value: string) => void;
-}
+import {FilterBarProps} from '../core/model'
 
 const FilterBar: React.FC<FilterBarProps> = ({ role, setRole, status, setStatus }) => {
   return (
@@ -16,9 +10,9 @@ const FilterBar: React.FC<FilterBarProps> = ({ role, setRole, status, setStatus 
         onChange={(e) => setRole(e.target.value)}
       >
         <option>All Roles</option>
-        <option>Admin</option>
-        <option>Manager</option>
-        <option>User</option>
+        <option>admin</option>
+        <option>manager</option>
+        <option>user</option>
       </select>
 
       <select

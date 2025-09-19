@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import {
     signInWithEmailAndPassword,
+    GoogleAuthProvider,
+    signInWithPopup,
     onAuthStateChanged,
     signOut,
     User,
@@ -14,6 +16,7 @@ interface AuthContextType {
     user: User | null | undefined;
     token: string | null;
     login: (email: string, password: string) => Promise<void>;
+    loginWithGoogle: () => Promise<void>;
     logout: () => Promise<void>;
 }
 
@@ -29,7 +32,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             if (currentUser) {
-                console.log(currentUser)
                 const idToken = await currentUser.getIdToken();
                 setToken(idToken);
                 localStorage.setItem("token", idToken);
@@ -67,7 +69,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         localStorage.setItem("token", idToken);
     };
 
-    
+
+    const loginWithGoogle = async () => {
+        const provider = new GoogleAuthProvider();
+        await signInWithPopup(auth, provider);
+    };
+
     const logout = async () => {
         await signOut(auth);
         localStorage.removeItem("token");
@@ -76,7 +83,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     return (
-        <AuthContext.Provider value={{ user, token, login, logout }}>
+        <AuthContext.Provider value={{ user, token, login, logout,loginWithGoogle }}>
             {children}
         </AuthContext.Provider>
     );

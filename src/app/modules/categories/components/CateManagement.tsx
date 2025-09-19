@@ -1,16 +1,24 @@
-import React from "react";
+// CateManagement.tsx
+import React, { useState } from "react";
 import CateTable from "./CateTable";
-import { Categories } from "../../../../_stock_management/constants/Category";
-import Pagination from "../../users/components/Pagination";
+import Pagination from "../../../utils/Pagination";
+import { Category } from "../core/model";
+import FormCategory from "./FormCategory";
 
-const CateManagement:React.FC = () =>{
-    return<>
-        <div className="card p-4">
-      <div className='card-headers' >
+const CateManagement: React.FC = () => {
+    const [categories] = useState<Category[]>([]); // declare it
+    const [showModal, setShowModal] = useState(false);
+    const handleShowModal = () => setShowModal(true);
+    const handleCloseModal = () => setShowModal(false);
+
+
+  return (
+    <div className="card p-4">
+      <div className='card-headers'>
         <h2>Category Management</h2>
         <div>
           <button className='btn btn-secondary me-1'>Export CSV</button>
-          <button className='btn btn-success'>+ Add Category</button>
+          <button className='btn btn-success' onClick={handleShowModal}>+ Add Category</button>
         </div>
       </div>
 
@@ -19,11 +27,12 @@ const CateManagement:React.FC = () =>{
         <select className='form-select w-auto'><option>All Status</option></select>
       </div>
 
-      <CateTable categories={Categories} />
+      {/* pass your array to CateTable */}
+      <CateTable category={categories} />
 
       <div className="d-flex justify-content-between align-items-center mt-3 small text-muted">
         <span>
-          Showing 1 to {Categories.length} of {Categories.length} results
+          Showing 1 to {categories.length} of {categories.length} results
         </span>
         <Pagination
           currentPage={1}
@@ -31,7 +40,10 @@ const CateManagement:React.FC = () =>{
           onPageChange={(page) => console.log("Go to page", page)}
         />
       </div>
+
+        <FormCategory show={showModal} handleClose={handleCloseModal} mode='add' />
     </div>
-    </>
-}
+  );
+};
+
 export default CateManagement;

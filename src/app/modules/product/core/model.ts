@@ -1,12 +1,16 @@
 
-export type ProductStatus = 'In Stock' | 'Low Stock' | 'Out of Stock';
+export type ProductStatus =  'In Stock' | 'Low Stock' | 'Out of Stock';
 
 export interface Product {
-  id: string;
+  id: number;
   name: string;
-  category: string;
-  price: number;
-  stock: number;
+  category_name: string;
+  price: string | number;
+  quantity: number;
   status: ProductStatus;
-  thumbnail?: string; // Optional image URL
+  thumbnail?: string;
 }
+
+
+
+

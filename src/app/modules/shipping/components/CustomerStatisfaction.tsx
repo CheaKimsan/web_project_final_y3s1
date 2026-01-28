@@ -1,4 +1,5 @@
 import React from 'react';
+import { useProduct } from '../../product/core/action';
 import {
   PieChart,
   Pie,
@@ -7,30 +8,71 @@ import {
   Label,
 } from 'recharts';
 
+type StockItem = {
+  name: string;
+  units: number;
+  status: 'In Stock' | 'Minimum' | 'Out of stock';
+};
+
+// Map statuses to colors
+const statusColorMap: Record<StockItem['status'], string> = {
+  'In Stock': '#4263eb',       
+  'Minimum': '#d69e2e',       
+  'Out of stock': '#e53e3e',   
+};
+
 const CustomerSatisfaction: React.FC = () => {
-  const totalReviews = 960;
+  const { products } = useProduct();
 
-  const data = [
-    { name: 'Satisfied', value: 75 },
-    { name: 'Neutral', value: 15 },
-    { name: 'Dissatisfied', value: 10 },
-  ];
+  const stockData: StockItem[] = products
+    .map(product => {
+      const units = typeof product.quantity === 'number' ? product.quantity : parseInt(product.quantity, 10) || 0;
+      let status: StockItem['status'];
+      if (units >= 100) {
+        status = 'In Stock';
+      } else if (units > 0) {
+        status = 'Minimum';
+      } else {
+        status = 'Out of stock';
+      }
+      return {
+        name: product.name || 'Unknown',
+        units,
+        status,
+      };
+    })
+    .filter(item => item.units >= 0);
 
-  const COLORS = ['#4263eb', '#d8d8d8', '#e53e3e'];
+  // Calculate total units
+  const totalUnits = stockData.reduce((sum, item) => sum + item.units, 0);
+
+  // Group units by status and calculate percentages
+  const statusTotals: Record<StockItem['status'], number> = {
+    'In Stock': 0,
+    'Minimum': 0,
+    'Out of stock': 0,
+  };
+
+  stockData.forEach(item => {
+    statusTotals[item.status] += item.units;
+  });
+
+  const pieData = Object.entries(statusTotals).map(([status, value]) => ({
+    name: status,
+    value: totalUnits > 0 ? (value / totalUnits) * 100 : 0, // Percentage
+  }));
 
   return (
-    <div
-      className="card"
-    >
+    <div className="card">
       <div className="card-headers" style={{ marginBottom: '20px' }}>
-        <h2 style={{ fontSize: '16px', fontWeight: 600 }}>Customer Satisfaction</h2>
+        <h2 style={{ fontSize: '16px', fontWeight: 600 }}>Stock Availability Distribution</h2>
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         {/* Pie Chart */}
         <PieChart width={200} height={200}>
           <Pie
-            data={data}
+            data={pieData}
             cx="50%"
             cy="50%"
             innerRadius={50}
@@ -38,13 +80,13 @@ const CustomerSatisfaction: React.FC = () => {
             paddingAngle={2}
             dataKey="value"
           >
-            {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index]} />
+            {pieData.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={statusColorMap[entry.name as StockItem['status']]} />
             ))}
 
             {/* Center Label */}
             <Label
-              value={`${totalReviews} REVIEWS`}
+              value={`${totalUnits} UNITS`}
               position="center"
               style={{
                 fontSize: '14px',
@@ -53,12 +95,12 @@ const CustomerSatisfaction: React.FC = () => {
               }}
             />
           </Pie>
-          <Tooltip />
+          <Tooltip formatter={(value: number) => `${value.toFixed(2)}%`} />
         </PieChart>
 
         {/* Legend */}
         <div style={{ marginTop: '15px', width: '100%' }}>
-          {data.map((item, index) => (
+          {pieData.map((item, index) => (
             <div
               key={index}
               style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}
@@ -68,7 +110,7 @@ const CustomerSatisfaction: React.FC = () => {
                   style={{
                     width: 12,
                     height: 12,
-                    backgroundColor: COLORS[index],
+                    backgroundColor: statusColorMap[item.name as StockItem['status']],
                     borderRadius: '50%',
                     display: 'inline-block',
                     marginRight: 6,
@@ -76,7 +118,7 @@ const CustomerSatisfaction: React.FC = () => {
                 ></span>
                 {item.name}
               </div>
-              <span>{item.value}%</span>
+              <span>{item.value.toFixed(2)}%</span>
             </div>
           ))}
         </div>

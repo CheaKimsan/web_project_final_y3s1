@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button, Row, Col, Form, Image } from 'react-bootstrap';
+import { Modal, Button, Row, Col, Image, Form } from 'react-bootstrap';
 import { Formik } from 'formik';
-import useCategory from '../../categories/core/action';
+import * as Yup from 'yup';
 import { useProduct } from '../core/action';
+import useCategory from '../../categories/core/action';
 import Field from '../../../utils/Field';
 import ProductSelect from '../../../utils/FormSelect';
 import FormFileInput from '../../../utils/FormFileInput';
-import * as Yup from "yup";
+
 interface ProductFormValues {
   pro_name: string;
-  cate_id: string;
-  price: string | number;
-  qty: string | number;
+  cate_id: string; // string for Formik/select
+  price: number;
+  qty: number;
   desc: string;
   thumbnail: File | null;
 }
@@ -19,7 +20,7 @@ interface ProductFormValues {
 interface FormProductProps {
   show: boolean;
   mode: 'add' | 'edit';
-  product?: any; // API product object
+  product?: any;
   handleClose: () => void;
 }
 
@@ -39,46 +40,41 @@ const validationSchema = Yup.object().shape({
   thumbnail: Yup.mixed().nullable(),
 });
 
+const PHP_UPLOAD_BASE_URL = 'http://localhost/';
+
 const FormProduct: React.FC<FormProductProps> = ({ show, mode, product, handleClose }) => {
   const { addProduct, updateProduct } = useProduct();
   const { categories } = useCategory();
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
-  const categoryIdFromName = product?.category_name
-      ? categories.find(c => c.name === product.category_name)?.id
-      : '';
-
   const initialValues: ProductFormValues = {
     pro_name: product?.name || '',
-    cate_id: categoryIdFromName ? String(categoryIdFromName) : '',
-    price: product?.price || '',
-    qty: product?.quantity || '',
+    cate_id: product?.category_id ? String(product.category_id) : '',
+    price: product?.price || 0,
+    qty: product?.quantity || 0,
     desc: product?.description || product?.desc || '',
-    thumbnail: product?.thumbnail || null,
+    thumbnail: null,
   };
 
-
   useEffect(() => {
-    if (product?.thumbnail) setImagePreview(product.thumbnail);
+    if (product?.thumbnail) {
+      setImagePreview(`${PHP_UPLOAD_BASE_URL}${product.thumbnail}`);
+    } else {
+      setImagePreview(null);
+    }
   }, [product]);
 
   const handleSubmit = async (values: ProductFormValues, { resetForm }: any) => {
+    const payload: any = {
+      pro_name: values.pro_name,
+      cate_id: Number(values.cate_id),
+      price: Number(values.price),
+      qty: Number(values.qty),
+      desc: values.desc,
+      thumbnail: values.thumbnail,
+    };
+
     try {
-      const payload = {
-        pro_name: values.pro_name,
-        cate_id: Number(values.cate_id),
-        price: Number(values.price),
-        qty: Number(values.qty),
-        desc: values.desc,
-        thumbnail: values.thumbnail,
-      };
-
-      // Validate required fields
-      if (!payload.pro_name || !payload.cate_id || !payload.price || !payload.qty || !payload.desc) {
-        console.error("Missing required fields:", payload);
-        return;
-      }
-
       if (mode === 'add') {
         await addProduct(payload);
       } else if (mode === 'edit' && product?.id) {
@@ -88,12 +84,12 @@ const FormProduct: React.FC<FormProductProps> = ({ show, mode, product, handleCl
       resetForm();
       handleClose();
     } catch (err: any) {
-      console.error("Submit failed in component:", err);
+      console.error('Submit failed:', err);
     }
   };
 
   return (
-      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false} size="lg">
+      <Modal show={show} onHide={handleClose} backdrop="static" size="lg">
         <Modal.Header closeButton>
           <Modal.Title>{mode === 'add' ? 'Add Product' : 'Update Product'}</Modal.Title>
         </Modal.Header>
@@ -162,14 +158,13 @@ const FormProduct: React.FC<FormProductProps> = ({ show, mode, product, handleCl
                           label="Image File"
                           name="thumbnail"
                           onChange={(file) => {
-                            setFieldValue('thumbnail', file); // <-- use 'thumbnail' here
+                            setFieldValue('thumbnail', file);
                             if (file) setImagePreview(URL.createObjectURL(file));
                           }}
                           onBlur={handleBlur}
                           isInvalid={!!errors.thumbnail && touched.thumbnail}
                           feedback={errors.thumbnail}
                       />
-
                       {imagePreview && (
                           <Image
                               src={imagePreview}
@@ -198,7 +193,9 @@ const FormProduct: React.FC<FormProductProps> = ({ show, mode, product, handleCl
                 </Modal.Body>
                 <Modal.Footer>
                   <Button variant="secondary" onClick={handleClose}>Cancel</Button>
-                  <Button type="submit" variant="primary">{mode === 'add' ? 'Add Product' : 'Update Product'}</Button>
+                  <Button type="submit" variant="primary">
+                    {mode === 'add' ? 'Add Product' : 'Update Product'}
+                  </Button>
                 </Modal.Footer>
               </Form>
           )}

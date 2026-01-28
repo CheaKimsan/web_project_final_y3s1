@@ -79,24 +79,8 @@ const useProduct = () => {
 
   const updateProduct = async (id: number, product: any) => {
     try {
-      // Ensure all required fields are present
-      const payload = {
-        pro_name: product.pro_name || '',
-        qty: product.qty || 0,
-        price: product.price || 0,
-        desc: product.desc || '',
-        cate_id: product.cate_id || '',
-        image: product.image || null,
-        sup_id: product.sup_id || null,
-      };
-
-      // Validate required fields
-      if (!payload.pro_name || !payload.cate_id || !payload.price || !payload.qty || !payload.desc) {
-        throw new Error("Missing required fields: pro_name, cate_id, price, qty, or desc");
-      }
-
-      await reqUpdateProduct(id, payload);
-      await fetchProducts();
+      const updated = await reqUpdateProduct(id, product);
+      console.log("Product updated : ", updated);
 
       await Swal.fire({
         icon: "success",
@@ -105,15 +89,17 @@ const useProduct = () => {
         timer: 2000,
         showConfirmButton: false,
       });
+
+      fetchProducts(); // refresh your product list
     } catch (err: any) {
-      console.error("Failed to update product", err);
-      await Swal.fire({
+      Swal.fire({
         icon: "error",
-        title: "Failed to Update Product",
-        text: err.response?.data?.message || err.message || "Something went wrong",
+        title: "Update Failed",
+        text: err.message,
       });
     }
   };
+
 
   useEffect(() => {
     fetchProducts();

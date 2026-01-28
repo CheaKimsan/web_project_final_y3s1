@@ -17,7 +17,6 @@ const CateManagement: React.FC = () => {
       <div className='card-headers'>
         <h2>Category Management</h2>
         <div>
-          <button className='btn btn-secondary me-1'>Export CSV</button>
           <button className='btn btn-success' onClick={handleShowModal}>+ Add Category</button>
         </div>
       </div>

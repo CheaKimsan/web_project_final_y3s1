@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import ProductTable from '../components/ProductTable';
 import '../../../../_stock_management/assets/scss/custom.scss';
-import { Product, ProductStatus } from '../core/model';
+import {ProductStatus } from '../core/model';
 import { useProduct } from '../core/action';
 import Pagination from '../../../utils/Pagination';
 import useCategory from '../../categories/core/action';
@@ -41,7 +41,6 @@ const ProductManagement: React.FC = () => {
       <div className='card-headers d-flex justify-content-between'>
         <h2>Product Management</h2>
         <div>
-          <button className='btn btn-secondary me-1'>Export CSV</button>
           <button className='btn btn-success' onClick={handleShowModal}>
             + Add Product
           </button>

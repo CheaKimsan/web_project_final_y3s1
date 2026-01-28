@@ -20,7 +20,7 @@ const AppLayout: React.FC = () => {
   return (
     <div className="d-flex min-vh-100">
       <div
-        className="bg-white border-end"
+        className="customize-bg border-end"
         style={{
           width: collapsed ? '80px' : '250px',
           transition: 'width 0.3s cubic-bezier(0.4, 0, 0.2, 1)',

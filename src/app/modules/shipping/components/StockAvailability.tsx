@@ -1,16 +1,11 @@
 import React from 'react';
+import { useProduct } from '../../product/core/action';
 
 type StockItem = {
     name: string;
     units: number;
     status: 'In Stock' | 'Minimum' | 'Out of stock';
 };
-
-const stockData: StockItem[] = [
-    { name: 'Surgical', units: 800, status: 'In Stock' },
-    { name: 'Medicine', units: 0, status: 'Minimum' },
-    { name: 'Equipment', units: 0, status: 'Out of stock' },
-];
 
 // Map statuses to CSS classes
 const statusClassMap: Record<StockItem['status'], string> = {
@@ -27,6 +22,30 @@ const statusColorMap: Record<StockItem['status'], string> = {
 };
 
 const StockAvailability: React.FC = () => {
+    const { products } = useProduct();
+
+    // Transform products to StockItem format
+    const stockData: StockItem[] = products
+        .map(product => {
+            // Ensure units is a valid number
+            const units = typeof product.quantity === 'number' ? product.quantity : parseInt(product.quantity, 10) || 0;
+            let status: StockItem['status'];
+            if (units >= 70) { // Adjust threshold for 'In Stock' (e.g., >= 100 units)
+                status = 'In Stock';
+            } else if (units > 0) {
+                status = 'Minimum';
+            } else {
+                status = 'Out of stock';
+            }
+            return {
+                name: product.name || 'Unknown', // Use product.name, fallback to 'Unknown'
+                units,
+                status,
+            };
+        })
+        .filter(item => item.units >= 0); // Filter out invalid items
+
+    // Calculate total units
     const totalUnits = stockData.reduce((sum, item) => sum + item.units, 0);
 
     // Group units by status
@@ -82,9 +101,8 @@ const StockAvailability: React.FC = () => {
                 <span><span className="dot out-of-stock"></span> Out of Stock</span>
             </div>
 
-            {/* Stock items list */}
             <div className="stock-items">
-                {stockData.map(item => (
+                {stockData.slice(2,5).map(item => (
                     <div className="stock-item" key={item.name}>
                         <div>
                             <p className="item-name">{item.name}</p>

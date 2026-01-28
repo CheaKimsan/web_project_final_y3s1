@@ -9,6 +9,7 @@ import LoginPage from "../modules/auth/login/LoginPage";
 import { AuthProvider } from "../modules/auth/AuthContext";
 import PrivateRoute from "./PrivateRoute";
 import Roles from "../modules/role/Roles";
+import RegisterPage from "../modules/auth/login/RegisterPage";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Routes>
           {/* Public login route */}
           <Route path="/auth" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           {/* Protected routes */}
           <Route
             path="/"

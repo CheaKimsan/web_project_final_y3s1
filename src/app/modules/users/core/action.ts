@@ -1,37 +1,76 @@
-import { useDispatch, useSelector } from "react-redux";
-import { setUsers } from "./reducer";
-import { useNavigate } from "react-router-dom";
+// src/app/modules/users/core/useUsers.ts
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { collection, onSnapshot, doc, deleteDoc, addDoc, setDoc } from "firebase/firestore";
 import { RootState, AppDispatch } from "../../../redux/store";
-import { reqGetUsers } from "./request";
+import { setUsers, addUser, updateUser, removeUser } from "./reducer";
+import { db } from "../../../../config/firebase";
+import { User } from "./model";
 
 const useUsers = () => {
-  const users = useSelector((state: RootState) => state.user.users);
   const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
-
+  const users = useSelector((state: RootState) => state.user.users) as User[];
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Define fetchUsers first
-  const fetchUsers = async () => {
+  // Real-time fetch
+  useEffect(() => {
+    setLoading(true);
+    const colRef = collection(db, "users");
+
+    const unsubscribe = onSnapshot(
+      colRef,
+      snapshot => {
+        const usersData: User[] = snapshot.docs.map(doc => ({
+          id: doc.id,
+          name: doc.data().name,
+          email: doc.data().email,
+          role: doc.data().role || "user",
+          last_active: doc.data().last_active || "",
+          status: doc.data().last_active ? "active" : "inactive",
+          password: "",
+        }));
+        dispatch(setUsers(usersData));
+        setLoading(false);
+      },
+      err => {
+        console.error(err);
+        setError(err.message || "Failed to fetch users");
+        setLoading(false);
+      }
+    );
+
+    return () => unsubscribe();
+  }, [dispatch]);
+
+  // Delete user
+  const deleteUser = async (id: string) => {
     try {
-      setLoading(true);
-      const response = await reqGetUsers(); // Await the promise
-      dispatch(setUsers(response.data));
-      console.log(response.data);
-      
-      setLoading(false);
+      await deleteDoc(doc(db, "users", id));
+      dispatch(removeUser(id));
     } catch (err: any) {
-      setError(err.message || "Failed to fetch users");
-      setLoading(false);
+      console.error(err);
+      setError(err.message || "Failed to delete user");
     }
   };
-  useEffect(() => {
-    fetchUsers();
-  }, []);
 
-  return { users, loading, error, fetchUsers, navigate };
+  // Add or update user
+  const addOrUpdateUser = async (user: User) => {
+    try {
+      if (user.id) {
+        const userRef = doc(db, "users", user.id);
+        await setDoc(userRef, { ...user, last_active: new Date().toISOString() }, { merge: true });
+      } else {
+        const colRef = collection(db, "users");
+        await addDoc(colRef, { ...user, last_active: new Date().toISOString() });
+      }
+    } catch (err: any) {
+      console.error(err);
+      setError(err.message || "Failed to save user");
+    }
+  };
+
+  return { users, loading, error, deleteUser, addOrUpdateUser };
 };
 
 export default useUsers;

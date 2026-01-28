@@ -15,7 +15,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
 
   return (
     <Nav className="flex-column vh-100 p-3 bg-side-bar">
-      <h4 className={`mb-4 ${collapsed ? "d-none" : ""}`}>Stockly</h4>
+      <h4 className={`mb-3 text-center ${collapsed ? "d-none" : ""}`}>កំហឹងSu10</h4>
       {menuItems.map(({ label, icon: Icon, path, mtAuto }) => (
         <Nav.Link
           as={Link}

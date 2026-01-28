@@ -13,7 +13,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
   const location = useLocation();
   const activeItem = menuItems.find((item) => item.path === location.pathname);
 
-  const { user, logout } = useAuth(); // ✅ use Firebase Auth
+  const { user, logout } = useAuth(); // ✅ use Firebase for Auth
 
   const handleLogin = () => {
     console.log("Redirect to login page or open modal");
@@ -61,11 +61,6 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
                 <div className="fw-semibold">{user.displayName || user.email}</div>
                 <small className="text-muted">Admin</small> {/* demo role */}
               </div>
-              <Dropdown.Item href="#profile" className="border-bottom">
-                Profile
-              </Dropdown.Item>
-              <Dropdown.Item href="#settings">Settings</Dropdown.Item>
-              <Dropdown.Divider />
               <Dropdown.Item className="text-danger fw-semibold" onClick={logout}>
                 Log out
               </Dropdown.Item>

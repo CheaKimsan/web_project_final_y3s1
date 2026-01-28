@@ -1,11 +1,12 @@
-// core/model.ts
+// src/app/modules/users/core/model.ts
 export interface User {
-  id: number;
+  id: string;         // Firestore ID
   name: string;
   email: string;
+  password: string;
   role: string;
   last_active: string;
-  status: boolean | String;
+  status: string;     // "active" | "inactive"
 }
 
 
